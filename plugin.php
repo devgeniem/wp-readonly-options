@@ -42,7 +42,7 @@ class MustUseOptions {
             });
         }
 
-        if (is_admin()) {
+        if ( is_admin() && ! defined('WP_MUST_USE_OPTIONS_NO_JS') ) {
             self::admin_readonly_js( array_keys( $options ) );
         }
 
