@@ -36,9 +36,9 @@ My options page looks so empty and lonely:
 
 <img width="812" alt="Before" src="https://cloud.githubusercontent.com/assets/5691777/17637568/14e14110-60ed-11e6-867b-7f921d73fb02.png">
 
-I'll look up the keys from `/wp-admin/options.php`
+I'll look up the keys from `/wp-admin/options.php` and I see that they are `sm_bucket` and `sm_key_json`.
 
-Then we add the following code to our `wp-config.php`:
+I can use those keys with `WP_MUST_USE_OPTIONS` and I add the following code to my `wp-config.php`:
 
 ```php
 define( 'WP_MUST_USE_OPTIONS', array(
@@ -53,10 +53,9 @@ define( 'WP_MUST_USE_OPTIONS', array(
 ));
 ```
 
-After we get to see the setted values in readonly mode:
+Afterwise I can see the values in readonly mode:
 
 <img width="806" alt="After" src="https://cloud.githubusercontent.com/assets/5691777/17637575/1c282f42-60ed-11e6-8622-7cff2466578b.png">
-
 
 ## Configuration
 Disable JS include from admin pages.
