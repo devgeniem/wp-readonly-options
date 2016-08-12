@@ -12,7 +12,7 @@ It works by allowing you to force the results of `get_option()` to your predefin
 This also adds tiny amount if javascript into admin pages so that it can set readonly attributes to your options: `<input readonly>`.
 This makes it easier for the users to understand that these options shouldn't be changed.
 
-This only works in php7.0 because we use arrays in defining constants. Sorry legacy projects :(
+This only works in php7.0 since we use arrays when defining constants. Sorry legacy projects :(
 
 ## Installation
 Prefered installation is with composer:
@@ -30,15 +30,32 @@ Prefered installation is with composer:
 }
 ```
 
-## Code Example:
+## Code Example
 
-Following line in your `wp-config.php` will force `upload_path` to be `wp-content/files/` always.
+My options page looks so empty and lonely:
+
+<img width="812" alt="Before" src="https://cloud.githubusercontent.com/assets/5691777/17637568/14e14110-60ed-11e6-867b-7f921d73fb02.png">
+
+I'll look up the keys from `/wp-admin/options.php`
+
+Then we add the following code to our `wp-config.php`:
 
 ```php
 define( 'WP_MUST_USE_OPTIONS', array(
-    'upload_path' => 'files'
+    'sm_bucket' => 'my-bucket.example.com'
+    'sm_key_json' => '{
+      "type": "service_account",
+      "project_id": "XXXXXXXXXXXXXXXXXXXXXXX",
+      "private_key_id": "XXXXXXXXXXXXXXXXXXXX",
+      "private_key": "-----BEGIN PRIVATE KEY-----\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      -----END PRIVATE KEY-----
+    }'
 ));
 ```
+
+After we get to see the setted values in readonly mode:
+
+<img width="806" alt="After" src="https://cloud.githubusercontent.com/assets/5691777/17637575/1c282f42-60ed-11e6-8622-7cff2466578b.png">
 
 
 ## Configuration
