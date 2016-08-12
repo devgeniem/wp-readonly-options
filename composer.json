@@ -1,0 +1,22 @@
+{
+  "name": "devgeniem/wp-must-use-options",
+  "type": "wordpress-muplugin",
+  "license": "GPL-2.0",
+  "description": "Predefine WordPress options in your code and force get_option() results.",
+  "homepage": "https://github.com/devgeniem/wp-must-use-options",
+  "authors": [
+    {
+      "name": "Onni Hakala",
+      "email": "onni.hakala@geniem.com",
+      "homepage": "https://github.com/onnimonni"
+    }
+  ],
+  "keywords": [
+    "wordpress","wp","database","option","force","must use"
+  ],
+  "require": {
+    "php": ">=7.0",
+    "composer/installers": "v1.0.12",
+    "koodimonni/composer-dropin-installer": "^1.0"
+  }
+}
