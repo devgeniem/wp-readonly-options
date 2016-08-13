@@ -1,5 +1,5 @@
 {
-  "name": "devgeniem/wp-must-use-options",
+  "name": "devgeniem/wp-readonly-options",
   "type": "wordpress-muplugin",
   "license": "GPL-2.0",
   "description": "Predefine WordPress options in your code and force get_option() results.",
