@@ -13,7 +13,7 @@ This plugin helps you to set all your settings in your code and doesn't force yo
 It works by allowing you to force the results of `get_option()` to your predefined values.
 
 This also adds tiny amount if javascript into admin pages so that it can set readonly attributes to your options: `<input readonly>`.
-This makes it easier for the users to understand that these options shouldn't be changed.
+This makes it easier for the users to understand that these options can't be changed.
 
 This only works in `php7.0` version or better since we use arrays when defining constants. We also like to use scalar type hintings. Sorry legacy projects :(
 
@@ -40,6 +40,7 @@ My options page looks so empty and lonely:
 <img width="812" alt="Before" src="https://cloud.githubusercontent.com/assets/5691777/17637568/14e14110-60ed-11e6-867b-7f921d73fb02.png">
 
 I'll look up the keys from `/wp-admin/options.php` and I see that they are `sm_bucket` and `sm_key_json`.
+
 You can also see the names by using Google Chrome inspector. Key name is same as input element ID.
 
 I can use those keys with `WP_READONLY_OPTIONS` and I add the following code to my `wp-config.php`:
