@@ -2,11 +2,11 @@
 /**
  * Plugin Name: WP Readonly Options
  * Description: Plugin which adds forced options through WP_READONLY_OPTIONS constant
- * Version: 1.0.0
+ * Version: 1.1.0
  * Plugin URI: https://github.com/devgeniem/wp-must-use-options
  * Author: Onni Hakala / Geniem Oy
  * Author URI: https://github.com/onnimonni
- * License: MIT License
+ * License: GPLv2
  */
 
 namespace Geniem\Helper;
@@ -15,6 +15,7 @@ class ReadonlyOptions {
 
     /**
      * Helper text which is set to all readonly element titles by javascript
+     * Admin users can see this when they hover over readonly elements
      */
     static $hover_text = '';
 
@@ -27,8 +28,10 @@ class ReadonlyOptions {
      * Setup hooks, filters and default options
      */
     static function init() {
+        // This can be overridden if something else feels better
         self::$hover_text = 'This option is set readonly in ' . basename(__DIR__).'/'.basename(__FILE__);
 
+        // Use javascript hack in admin option pages
         if ( is_admin() && ! defined('WP_READONLY_OPTIONS_NO_JS') ) {
             add_action('admin_enqueue_scripts', [ __CLASS__, 'set_admin_readonly_js' ] );
         }
@@ -39,7 +42,7 @@ class ReadonlyOptions {
      *
      * @param array $options - Options to be added
      */
-    static function add_options(array $options) {
+    static function add_options( array $options ) {
         self::$options = array_merge($options,self::$options);
     }
 
@@ -49,7 +52,7 @@ class ReadonlyOptions {
      *
      * @param $options array - List of forced options
      */
-    static function set( $options ) {
+    static function set( array $options ) {
 
         if ( is_array( $options ) ) {
 
@@ -68,15 +71,18 @@ class ReadonlyOptions {
                 });
             }
 
-            // Add to bigger array which is used later on in admin_footer
-            self::add_options($options);
+            // Add to all options which can be used later on in admin_footer hook
+            self::add_options( $options );
         }
     }
 
     /**
      * Set option input fields as readonly in admin pages so that users won't get confused
+     * hooks into: admin_enqueue_scripts
+     *
+     * @param string $page_name - Admin page name from admin_enqueue_scripts
      */
-    static function set_admin_readonly_js($page_name) {
+    static function set_admin_readonly_js( string $page_name ) {
         switch ($page_name) {
 
             // Enable readonly js fixer for all admin options pages
@@ -94,26 +100,36 @@ class ReadonlyOptions {
             // Add javascript which turns $elements into readonly
             add_action( 'admin_footer', function() use ( $input_element_ids, $hover_text ) {
                 // Show information about this plugin in element mouseover title for easier debugging
-                ?>
-                <script>
-                    (function() {
-                        // Turn these input elements to readOnly to present that their values are forced
-                        ['<?php echo implode($input_element_ids,"','"); ?>'].forEach(function(elementId) {
-                            var element =  document.getElementById(elementId);
-                            if (typeof(element) != 'undefined' && element != null) {
-                              element.readOnly = true;
-                              element.title = '<?php echo $hover_text;?>';
-                            }
-                        });
-                    })();
-                </script>
-                <?php
+                self::print_admin_readonly_js_script( $input_element_ids, $hover_text );
             });
 
             // On other pages do nothing
             default:
             return;
         }
+    }
+
+    /**
+     * Outputs <script> tag which sets some elements to readonly state
+     *
+     * @param array $input_element_ids - List of elements to turn to readonly state
+     * @param string $hover_text - Helper text for admin users which they can see when hovering over elements
+     */
+    static function print_admin_readonly_js_script( array $input_element_ids, string $hover_text ) {
+        ?>
+            <script>
+                (function() {
+                    // Turn these input elements to readOnly to present that their values are forced
+                    ['<?php echo implode($input_element_ids,"','"); ?>'].forEach(function(elementId) {
+                        var element =  document.getElementById(elementId);
+                        if (typeof(element) != 'undefined' && element != null) {
+                          element.readOnly = true;
+                          element.title = '<?php echo $hover_text;?>';
+                        }
+                    });
+                })();
+            </script>
+        <?php
     }
 
 }
