@@ -2,7 +2,8 @@
 # WP Plugin: Readonly Options
 [![Build Status](https://travis-ci.org/devgeniem/wp-readonly-options.svg?branch=master)](https://travis-ci.org/devgeniem/wp-readonly-options) [![Latest Stable Version](https://poser.pugx.org/devgeniem/wp-readonly-options/v/stable)](https://packagist.org/packages/devgeniem/wp-readonly-options) [![Total Downloads](https://poser.pugx.org/devgeniem/wp-readonly-options/downloads)](https://packagist.org/packages/devgeniem/wp-readonly-options) [![Latest Unstable Version](https://poser.pugx.org/devgeniem/wp-readonly-options/v/unstable)](https://packagist.org/packages/devgeniem/wp-readonly-options) [![License](https://poser.pugx.org/devgeniem/wp-readonly-options/license)](https://packagist.org/packages/devgeniem/wp-readonly-options)
 
-Have you ever wanted to set all your options as `define('PLUGIN_OPTION','some_value')` in wp_config.php?
+Have you ever wanted to set all your options as `define('PLUGIN_OPTION','some_value')` in `wp_config.php`?
+
 Sometimes you need to use 3rd party plugin which only gives you those options in admin pages and GUI.
 And now you can't use git to version control your settings as you would love to do.
 
