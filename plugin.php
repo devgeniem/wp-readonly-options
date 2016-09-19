@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Readonly Options
  * Description: Plugin which adds forced options through WP_READONLY_OPTIONS constant
- * Version: 1.1.0
+ * Version: 1.2.0
  * Plugin URI: https://github.com/devgeniem/wp-must-use-options
  * Author: Onni Hakala / Geniem Oy
  * Author URI: https://github.com/onnimonni
@@ -42,7 +42,7 @@ class ReadonlyOptions {
      *
      * @param array $options - Options to be added
      */
-    static function add_options( array $options ) {
+    static function add_options( $options ) {
         self::$options = array_merge($options,self::$options);
     }
 
@@ -82,7 +82,7 @@ class ReadonlyOptions {
      *
      * @param string $page_name - Admin page name from admin_enqueue_scripts
      */
-    static function set_admin_readonly_js( string $page_name ) {
+    static function set_admin_readonly_js( $page_name ) {
         switch ($page_name) {
 
             // Enable readonly js fixer for all admin options pages
@@ -115,7 +115,7 @@ class ReadonlyOptions {
      * @param array $input_element_ids - List of elements to turn to readonly state
      * @param string $hover_text - Helper text for admin users which they can see when hovering over elements
      */
-    static function print_admin_readonly_js_script( array $input_element_ids, string $hover_text ) {
+    static function print_admin_readonly_js_script( $input_element_ids, $hover_text ) {
         ?>
             <script>
                 (function() {
@@ -145,5 +145,9 @@ ReadonlyOptions::init();
 
 // Default variable which is always used
 if ( defined( 'WP_READONLY_OPTIONS' ) ) {
-    ReadonlyOptions::set( WP_READONLY_OPTIONS );
+    if ( is_array( WP_READONLY_OPTIONS ) ) { // Use arrays with php7
+        ReadonlyOptions::set( WP_READONLY_OPTIONS );
+    } elseif ( is_serialized( WP_READONLY_OPTIONS ) ) { // Use serialized arrays in <php5
+        ReadonlyOptions::set( unserialize( WP_READONLY_OPTIONS ) );
+    }
 }

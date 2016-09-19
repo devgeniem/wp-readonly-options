@@ -45,6 +45,7 @@ You can also see the names by using Google Chrome inspector. Key name is same as
 
 I can use those keys with `WP_READONLY_OPTIONS` and I add the following code to my `wp-config.php`:
 
+**php7.0**
 ```php
 define( 'WP_READONLY_OPTIONS', array(
     'sm_bucket' => 'my-bucket.example.com'
@@ -57,6 +58,21 @@ define( 'WP_READONLY_OPTIONS', array(
     }'
 ));
 ```
+
+**php5.X**
+```php
+define( 'WP_READONLY_OPTIONS', serialize( array(
+    'sm_bucket' => 'my-bucket.example.com'
+    'sm_key_json' => '{
+      "type": "service_account",
+      "project_id": "XXXXXXXXXXXXXXXXXXXXXXX",
+      "private_key_id": "XXXXXXXXXXXXXXXXXXXX",
+      "private_key": "-----BEGIN PRIVATE KEY-----\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      -----END PRIVATE KEY-----
+    }'
+)));
+```
+
 
 Afterwise I can see the values in readonly mode:
 
