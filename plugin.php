@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Readonly Options
  * Description: Plugin which adds forced options through WP_READONLY_OPTIONS constant
- * Version: 1.2.1
+ * Version: 1.2.2
  * Plugin URI: https://github.com/devgeniem/wp-must-use-options
  * Author: Onni Hakala / Geniem Oy
  * Author URI: https://github.com/onnimonni
