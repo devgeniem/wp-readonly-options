@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Readonly Options
  * Description: Plugin which adds forced options through WP_READONLY_OPTIONS constant
- * Version: 1.2.0
+ * Version: 1.2.1
  * Plugin URI: https://github.com/devgeniem/wp-must-use-options
  * Author: Onni Hakala / Geniem Oy
  * Author URI: https://github.com/onnimonni
@@ -120,17 +120,17 @@ class ReadonlyOptions {
             <script>
                 (function() {
                     // Turn these input elements to readOnly to present that their values are forced
-                    ['<?php echo implode($input_element_ids,"','"); ?>'].forEach(function(elementId) {
+                    ['<?php echo implode("','",$input_element_ids); ?>'].forEach(function(elementId) {
                         var el =  document.getElementById(elementId);
                         if ( typeof(el) != 'undefined' && el != null ) {
-                          el.readOnly = true;
-                          el.title = '<?php echo $hover_text;?>';
+                            el.readOnly = true;
+                            el.title = '<?php echo $hover_text;?>';
 
-                          if ( el.type === 'checkbox' ) {
-                            el.onclick = function() {
-                                return false;
-                            };
-                          }
+                            if ( el.type === 'checkbox' ) {
+                                el.onclick = function() {
+                                    return false;
+                                };
+                            }
                         }
                     });
                 })();
